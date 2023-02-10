@@ -5,6 +5,8 @@ import { AppModule } from './app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
+  const { PORT, CORS } = process.env;
+
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.useGlobalPipes(
@@ -20,14 +22,13 @@ async function bootstrap() {
   );
 
   const options: CorsOptions = {
-    origin: 'http://localhost:5173',
+    origin: CORS,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     credentials: true,
   };
 
   app.enableCors(options);
-  const { PORT } = process.env;
   await app.listen(PORT);
 }
 bootstrap();
