@@ -59,10 +59,9 @@ export class AuthService {
 
       return res
         .cookie('jwt', token.accessToken, {
-          secure:
-            this.configService.get<string>('JWT_PROTOCOL_SECURE') === 'true',
+          secure: this.configService.get('JWT_PROTOCOL_SECURE') === 'true',
           domain: this.configService.get<string>('DOMAIN'),
-          httpOnly: this.configService.get<string>('JWT_HTTP_ONLY') === 'true',
+          httpOnly: this.configService.get('JWT_HTTP_ONLY') === 'true',
           maxAge: +this.configService.get('JWT_EXPIRES_SECONDS'),
         })
         .json({ logged: true, status: 200 });

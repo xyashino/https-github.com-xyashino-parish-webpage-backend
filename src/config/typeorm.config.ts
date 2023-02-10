@@ -19,9 +19,9 @@ export class TypeormConfig {
         'dist/**/*.entity{.ts,.js}',
       ],
       bigNumberStrings: false,
-      logging: configService.get<boolean>('DB_LOGGING'),
+      logging: configService.get('DB_LOGGING') === 'true',
       migrations: ['dist/migration/*.js'],
-      synchronize: configService.get<boolean>('DB_SYNCHRONIZE'),
+      synchronize: configService.get('DB_SYNCHRONIZE') === 'true',
       autoLoadEntities: true,
       extra: {
         decimalNumbers: true,
