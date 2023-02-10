@@ -24,7 +24,7 @@ import { UsersResponse } from '../types/users/users-response.interface';
 @Serialize(UserDto)
 export class UserController {
   @Inject(forwardRef(() => UserService))
-  public userService: UserService;
+  private userService: UserService;
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
