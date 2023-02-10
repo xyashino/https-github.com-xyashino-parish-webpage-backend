@@ -1,7 +1,7 @@
+import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as cookieParser from 'cookie-parser';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
@@ -18,14 +18,15 @@ async function bootstrap() {
       },
     }),
   );
+
   const options: CorsOptions = {
     origin: 'http://localhost:5173',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     credentials: true,
   };
-  app.enableCors(options);
 
+  app.enableCors(options);
   const { PORT } = process.env;
   await app.listen(PORT);
 }
