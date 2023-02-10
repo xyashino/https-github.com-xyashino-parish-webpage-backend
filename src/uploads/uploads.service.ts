@@ -15,7 +15,7 @@ export class UploadsService {
 
     const foundAlbum = await AlbumEntity.findOneBy({ id: albumId });
     if (!foundAlbum) throw new NotFoundException();
-
+    debugger;
     const newImage = new ImageEntity();
     newImage.extname = extname(originalname);
     newImage.oldName = originalname;
@@ -24,8 +24,10 @@ export class UploadsService {
     newImage.url = `/${images.id}/${id}${imageExtname}`;
     await newImage.save();
 
-    foundAlbum.backgroundImage = foundAlbum.backgroundImage ?? newImage.url;
-    await foundAlbum.save();
+    if (!foundAlbum.backgroundImage) {
+      foundAlbum.backgroundImage = newImage.url;
+      await foundAlbum.save();
+    }
 
     const albumPath =
       this.configService.get('ALBUM_DIR') + `/${foundAlbum.id}/`;

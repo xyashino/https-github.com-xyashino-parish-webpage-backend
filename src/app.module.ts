@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { StartupService } from './startup.service';
 import { ConfigModule } from '@nestjs/config';
 import { typeormConfigAsync } from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AnnouncementsModule } from './announcements/announcements.module';
 import { ArticlesModule } from './articles/articles.module';
+import { UploadsModule } from './uploads/uploads.module';
+import { AlbumsModule } from './albums/albums.module';
 
 @Module({
   imports: [
@@ -21,8 +22,9 @@ import { ArticlesModule } from './articles/articles.module';
     UserModule,
     AnnouncementsModule,
     ArticlesModule,
+    UploadsModule,
+    AlbumsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [StartupService],
 })
 export class AppModule {}
