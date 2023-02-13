@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { StartupService } from './startup.service';
 import { ConfigModule } from '@nestjs/config';
 import { typeormConfigAsync } from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -25,6 +24,6 @@ import { AlbumsModule } from './albums/albums.module';
     UploadsModule,
     AlbumsModule,
   ],
-  providers: [StartupService],
+  // providers: [StartupService],
 })
 export class AppModule {}
