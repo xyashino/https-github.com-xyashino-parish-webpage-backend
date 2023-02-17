@@ -9,6 +9,7 @@ import { AnnouncementsModule } from './announcements/announcements.module';
 import { ArticlesModule } from './articles/articles.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { AlbumsModule } from './albums/albums.module';
+import { StartupService } from './startup.service';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { AlbumsModule } from './albums/albums.module';
     UploadsModule,
     AlbumsModule,
   ],
-  // providers: [StartupService],
+  providers: [StartupService],
 })
 export class AppModule {}
