@@ -8,11 +8,11 @@ export class TypeormConfig {
   static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
     return {
       type: 'mysql',
-      host: configService.get<string>('DB_HOST'),
-      port: configService.get<number>('DB_PORT'),
-      username: configService.get<string>('DB_USERNAME'),
-      password: configService.get<string>('DB_PASSWORD'),
-      database: configService.get<string>('DB_NAME'),
+      host: configService.get('DB_HOST'),
+      port: +configService.get('DB_PORT'),
+      username: configService.get('DB_USERNAME'),
+      password: configService.get('DB_PASSWORD'),
+      database: configService.get('DB_NAME'),
       entities: [
         'dist/**/**/**/*.entity{.ts,.js}',
         'dist/**/**/*.entity{.ts,.js}',
