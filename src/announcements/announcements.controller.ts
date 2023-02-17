@@ -19,7 +19,7 @@ export class AnnouncementsController {
   constructor(private readonly announcementsService: AnnouncementsService) {}
 
   @Post()
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() body: CreateAnnouncementDto) {
     return this.announcementsService.create(body);
   }

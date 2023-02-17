@@ -1,19 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateArticleDto } from './create-article.dto';
-import {
-  IsBoolean,
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Length,
-  Max,
-  Min,
-} from 'class-validator';
-import { ArticleType } from '../../types/enums/article.enum';
 import { Article } from '../../types/article/article-entity.interface';
 import { Expose } from 'class-transformer';
+import { ArticleType } from '../../enums/article.enum';
 
 export class ArticleDto implements Partial<Article> {
   @Expose()

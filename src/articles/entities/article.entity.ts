@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Article } from '../../types/article/article-entity.interface';
-import { ArticleType } from '../../types/enums/article.enum';
+import { ArticleType } from '../../enums/article.enum';
 
 @Entity()
 export class ArticleEntity extends BaseEntity implements Article {

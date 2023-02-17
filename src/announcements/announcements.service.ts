@@ -16,7 +16,7 @@ export class AnnouncementsService {
     return newAnnouncement;
   }
   async findMany() {
-    const announcementEntity = await AnnouncementsEntity.find({
+    return await AnnouncementsEntity.find({
       relations: {
         announcements: true,
       },
@@ -26,7 +26,6 @@ export class AnnouncementsService {
         },
       },
     });
-    return announcementEntity;
   }
 
   async findOne(id: string) {
@@ -67,11 +66,9 @@ export class AnnouncementsService {
         await announcement.remove();
       }
     }
-
     if (announcements) {
       await this.createAnnouncements(announcements, announcementEntity);
     }
-
     return this.findOne(announcementEntity.id);
   }
 
