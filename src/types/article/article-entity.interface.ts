@@ -1,4 +1,4 @@
-import { ArticleType } from '../enums/article.enum';
+import { ArticleType } from '../../enums/article.enum';
 
 export interface Article {
   id: string;

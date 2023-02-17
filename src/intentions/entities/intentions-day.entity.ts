@@ -6,9 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Day } from '../../types/enums/day.enum';
 import { IntentionEntity } from './intention.entity';
-import { DayIntentionEntity } from '../../types/intentions/day-intention-entity.interface';
+import { DayIntentionEntity } from '../../types';
+import { Day } from '../../enums/day.enum';
 
 @Entity()
 export class IntentionsDayEntity

@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateIntentionDto } from './create-intention.dto';
-import { Day } from '../../types/enums/day.enum';
+import { Day } from '../../enums/day.enum';
 
 export class UpdateDayIntentionsDto {
   @IsOptional()

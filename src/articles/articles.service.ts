@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { ArticleEntity } from './entities/article.entity';
-import { ArticleType } from '../types/enums/article.enum';
+import { ArticleType } from '../enums/article.enum';
 
 @Injectable()
 export class ArticlesService {
@@ -19,7 +19,7 @@ export class ArticlesService {
       },
     });
   }
-  findAllByQuery(type?: ArticleType, headers?: true) {
+  findAllByQuery(type?: ArticleType) {
     return ArticleEntity.findBy({ type });
   }
 

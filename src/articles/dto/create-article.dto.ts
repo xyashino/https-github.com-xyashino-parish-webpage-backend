@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 
 import { Article } from '../../types/article/article-entity.interface';
-import { ArticleType } from '../../types/enums/article.enum';
+import { ArticleType } from '../../enums/article.enum';
 
 export class CreateArticleDto implements Partial<Article> {
   @IsNotEmpty()

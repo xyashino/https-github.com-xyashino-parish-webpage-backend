@@ -1,4 +1,4 @@
-import { Day } from '../../enums/day.enum';
+import { Day } from 'src/enums/day.enum';
 import { CreateIntentionRequest } from './create-intention-request.interface';
 
 export interface CreateDayIntentionRequest {

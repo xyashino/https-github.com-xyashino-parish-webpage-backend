@@ -8,8 +8,8 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateIntentionDto } from './create-intention.dto';
-import { Day } from '../../types/enums/day.enum';
-import { CreateDayIntentionRequest } from '../../types/intentions/requests/create-day-intention-request.interface';
+import { CreateDayIntentionRequest } from '../../types';
+import { Day } from 'src/enums/day.enum';
 
 export class CreateDayIntentionsDto implements CreateDayIntentionRequest {
   @IsNotEmpty()

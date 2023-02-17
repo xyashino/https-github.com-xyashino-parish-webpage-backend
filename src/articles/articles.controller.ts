@@ -1,22 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  Query,
-  ParseEnumPipe,
+  Get,
+  Param,
   ParseUUIDPipe,
+  Patch,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
-import { ArticleType } from '../types/enums/article.enum';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Serialize } from '../interceptors/serialization.interceptor';
 import { ArticleDto } from './dto/article.dto';
-import { Day } from '../types/enums/day.enum';
+import { ArticleType } from '../enums/article.enum';
 
 @Serialize(ArticleDto)
 @Controller('articles')
@@ -41,9 +39,7 @@ export class ArticlesController {
 
   @Get('/types')
   getArticlesTypes() {
-    const types = Object.entries(ArticleType);
-
-    return types;
+    return Object.entries(ArticleType);
   }
 
   @Get(':id')

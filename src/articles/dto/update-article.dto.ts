@@ -10,7 +10,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { ArticleType } from '../../types/enums/article.enum';
+import { ArticleType } from '../../enums/article.enum';
 
 export class UpdateArticleDto extends PartialType(CreateArticleDto) {
   @IsOptional()
