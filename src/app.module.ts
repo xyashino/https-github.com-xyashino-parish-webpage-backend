@@ -7,8 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AnnouncementsModule } from './announcements/announcements.module';
 import { ArticlesModule } from './articles/articles.module';
-import { UploadsModule } from './uploads/uploads.module';
-import { AlbumsModule } from './albums/albums.module';
 import { StartupService } from './startup.service';
 
 @Module({
@@ -22,8 +20,6 @@ import { StartupService } from './startup.service';
     UserModule,
     AnnouncementsModule,
     ArticlesModule,
-    UploadsModule,
-    AlbumsModule,
   ],
   providers: [StartupService],
 })

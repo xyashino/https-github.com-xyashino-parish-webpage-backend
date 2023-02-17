@@ -32,7 +32,7 @@ export class ArticlesController {
     @Query('headers') headers: true,
   ) {
     if (type || headers) {
-      return this.articlesService.findAllByQuery(type, headers);
+      return this.articlesService.findAllByQuery(type);
     }
     return this.articlesService.findAll();
   }
