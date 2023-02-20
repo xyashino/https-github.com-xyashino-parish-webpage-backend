@@ -5,7 +5,9 @@ import {
 import { ConfigService } from '@nestjs/config';
 
 export class TypeormConfig {
-  static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
+  static async getOrmConfig(
+    configService: ConfigService,
+  ): Promise<TypeOrmModuleOptions> {
     return {
       type: 'mysql',
       host: configService.get('DB_HOST'),
