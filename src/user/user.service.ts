@@ -7,7 +7,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { DeleteUserDto } from './dto/delete-user.dto';
-import { compare, hash } from 'bcrypt';
+import { compare, hash } from 'bcryptjs';
 import { UserEntity } from './entities/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { ConfigService } from '@nestjs/config';
