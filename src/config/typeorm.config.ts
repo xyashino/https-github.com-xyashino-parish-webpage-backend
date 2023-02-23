@@ -3,7 +3,6 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-
 export class TypeormConfig {
   static async getOrmConfig(
     configService: ConfigService,
@@ -16,9 +15,9 @@ export class TypeormConfig {
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_NAME'),
       entities: [
-        'dist/**/**/**/*.entity{.ts,.js}',
-        'dist/**/**/*.entity{.ts,.js}',
-        'dist/**/*.entity{.ts,.js}',
+        `${configService.get('DB_MIGRATION_BASE')}/**/**/*.entity{.ts,.js}`,
+        `${configService.get('DB_MIGRATION_BASE')}/**/*.entity{.ts,.js}`,
+        `${configService.get('DB_MIGRATION_BASE')}/*.entity{.ts,.js}`,
       ],
       bigNumberStrings: false,
       logging: configService.get('DB_LOGGING') === 'true',
