@@ -12,13 +12,12 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { DeleteUserDto } from './dto/delete-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserObj } from '../decorators/user.decorator';
 import { UserEntity } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
 import { Serialize } from '../interceptors/serialization.interceptor';
-import { UsersResponse } from '../types/users/users-response.interface';
+import { UsersResponse } from '../types';
 
 @Controller('users')
 @Serialize(UserDto)
@@ -40,9 +39,9 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   remove(
     @Param('id', new ParseUUIDPipe()) id: string,
-    body: DeleteUserDto,
+    @UserObj() user: UserEntity,
   ): Promise<void> {
-    return this.userService.remove(id, body);
+    return this.userService.remove(id, user);
   }
   @Get('current')
   @UseGuards(AuthGuard('jwt'))
