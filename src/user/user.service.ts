@@ -6,10 +6,11 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { hash } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 import { UserEntity } from './entities/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { ConfigService } from '@nestjs/config';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -36,7 +37,7 @@ export class UserService {
     user.email = email;
     user.hashedPassword = await hash(
       password,
-      +this.configService.get<number>('ROUNDS_SALT'),
+      +this.configService.get<number>('BCRYPT_SALT_ROUNDS'),
     );
 
     return await user.save();
@@ -54,6 +55,27 @@ export class UserService {
   }
   getCurrentUser(user: UserEntity) {
     return user;
+  }
+
+  async updateCurrentUser(
+    user: UserEntity,
+    { password, newPassword, email }: UpdateUserDto,
+  ) {
+    if (!(await compare(password, user.hashedPassword)))
+      throw new UnauthorizedException('Invalid credentials');
+
+    if (email) {
+      await this.checkConflictData(email);
+      user.email = email ?? user.email;
+    }
+    if (newPassword) {
+      user.hashedPassword = await hash(
+        newPassword,
+        this.configService.get('BCRYPT_SALT_ROUNDS'),
+      );
+    }
+
+    return user.save();
   }
 
   private async checkConflictData(email: string): Promise<void> {

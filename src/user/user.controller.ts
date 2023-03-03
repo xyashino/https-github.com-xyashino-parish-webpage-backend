@@ -7,6 +7,7 @@ import {
   Inject,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import { UserEntity } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
 import { Serialize } from '../interceptors/serialization.interceptor';
 import { UsersResponse } from '../types';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 @Serialize(UserDto)
@@ -47,5 +49,14 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   getCurrentUser(@UserObj() user: UserEntity): UsersResponse {
     return this.userService.getCurrentUser(user);
+  }
+
+  @Patch('current')
+  @UseGuards(AuthGuard('jwt'))
+  async updateCurrentUser(
+    @UserObj() user: UserEntity,
+    @Body() body: UpdateUserDto,
+  ): Promise<UsersResponse> {
+    return await this.userService.updateCurrentUser(user, body);
   }
 }
