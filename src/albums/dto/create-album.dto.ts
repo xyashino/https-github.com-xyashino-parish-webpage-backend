@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateAlbumDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   type: string;
   @IsNotEmpty()
