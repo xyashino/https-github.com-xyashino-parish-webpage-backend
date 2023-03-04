@@ -22,7 +22,7 @@ async function bootstrap() {
   );
 
   const options: CorsOptions = {
-    origin: CORS,
+    origin: CORS.split(','),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     credentials: true,

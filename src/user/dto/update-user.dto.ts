@@ -7,7 +7,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { UpdateUserRequest } from '../../types/users/requests/update-user-request.interface';
+import { UpdateUserRequest } from '../../types';
 
 export class UpdateUserDto
   extends PartialType(RegisterUserDto)
@@ -18,6 +18,7 @@ export class UpdateUserDto
   @IsNotEmpty()
   @IsString()
   email: string;
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
   @Length(8, 256)

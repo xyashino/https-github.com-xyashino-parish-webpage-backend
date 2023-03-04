@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { v4 as uuid } from 'uuid';
 import { sign } from 'jsonwebtoken';
