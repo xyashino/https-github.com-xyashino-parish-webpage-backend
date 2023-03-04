@@ -1,21 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import tinify from 'tinify';
 import { ConfigService } from '@nestjs/config';
-import { AlbumEntity } from '../albums/entities/album.entity';
 import { ImageEntity } from '../albums/entities/image.entity';
 import { extname } from 'path';
+import { AlbumsService } from '../albums/albums.service';
 @Injectable()
 export class UploadsService {
-  constructor(private configService: ConfigService) {
-    tinify.key = configService.get('TINIFY_KEY');
+  constructor(
+    private configService: ConfigService,
+    private albumsService: AlbumsService,
+  ) {
+    tinify.key = this.configService.get('TINIFY_KEY');
   }
 
   async addFileToAlbum(file: Express.Multer.File, albumId) {
     const { buffer, originalname } = file;
 
-    const foundAlbum = await AlbumEntity.findOneBy({ id: albumId });
-    if (!foundAlbum) throw new NotFoundException();
-    debugger;
+    const foundAlbum = await this.albumsService.findOne(albumId);
+
     const newImage = new ImageEntity();
     newImage.extname = extname(originalname);
     newImage.oldName = originalname;

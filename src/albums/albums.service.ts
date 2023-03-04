@@ -12,19 +12,24 @@ import { AlbumEntity } from './entities/album.entity';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { ImageEntity } from './entities/image.entity';
 import { UpdateAlbumDto } from './dto/update-album.dto';
+import { AlbumsTypesService } from './albums-types.service';
 
 @Injectable()
 export class AlbumsService {
   @Inject(forwardRef(() => ConfigService))
   private configService: ConfigService;
+  @Inject(forwardRef(() => AlbumsTypesService))
+  private albumsTypeService: AlbumsTypesService;
 
   async create({ type, title, subtitle }: CreateAlbumDto) {
     const albumDirPath = this.configService.get('ALBUM_DIR');
     const newAlbum = new AlbumEntity();
 
-    newAlbum.type = type;
     newAlbum.title = title;
     newAlbum.subtitle = subtitle;
+    if (type) {
+      newAlbum.type = await this.albumsTypeService.findOne(type);
+    }
 
     const { id } = await newAlbum.save();
     await mkdir(`${albumDirPath}/${id}`);
@@ -47,8 +52,7 @@ export class AlbumsService {
     return albumEntity;
   }
   async remove(id: string) {
-    const albumEntity = await AlbumEntity.findOneBy({ id });
-    if (!albumEntity) throw new NotFoundException('Directory was not found');
+    const albumEntity = await this.findOne(id);
     await this.removeRecursiveDir(albumEntity.id);
     await albumEntity.remove();
     return {
@@ -56,20 +60,11 @@ export class AlbumsService {
       message: 'Directory was successfully removed.',
     };
   }
-
-  // @TODO this is good?
-  async getTypes() {
-    const types = (await AlbumEntity.query(
-      'SELECT type FROM album_entity WHERE 1 GROUP BY type;',
-    )) as { type: AlbumEntity['type'] }[];
-    return types.map((el) => el.type);
-  }
   async update(
     id: string,
     { backgroundImage, ...restOfAlbumDto }: UpdateAlbumDto,
   ) {
-    const albumEntity = await AlbumEntity.findOneBy({ id });
-    if (!albumEntity) throw new NotFoundException('Album was not found');
+    const albumEntity = await this.findOne(id);
 
     if (backgroundImage) {
       const image = await ImageEntity.findOneBy({ url: backgroundImage });
