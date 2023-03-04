@@ -5,16 +5,18 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import {AlbumEntity} from "./album.entity";
+import { AlbumEntity } from './album.entity';
 
 @Entity()
 export class AlbumTypeEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   name: string;
 
-  @OneToMany(() => AlbumEntity, (album) => album.type,{nullable:true})
+  @OneToMany(() => AlbumEntity, (album) => album.type, { nullable: true })
   albums: AlbumEntity[];
 }

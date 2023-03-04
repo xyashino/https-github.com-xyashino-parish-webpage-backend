@@ -2,17 +2,19 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ImageEntity } from './image.entity';
+import { AlbumTypeEntity } from './album-type.entity';
 
 @Entity()
 export class AlbumEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column()
-  type: string;
+
   @Column()
   title: string;
 
@@ -32,4 +34,11 @@ export class AlbumEntity extends BaseEntity {
     cascade: true,
   })
   images: ImageEntity[];
+
+  @ManyToOne(() => AlbumTypeEntity, (albumType) => albumType.albums, {
+    nullable: true,
+  })
+  @JoinColumn()
+  @JoinColumn()
+  type: AlbumTypeEntity;
 }
