@@ -16,7 +16,7 @@ import { CreateDayIntentionsDto } from './dto/create-day-intentions.dto';
 import { UpdateDayIntentionsDto } from './dto/update-day-intentions.dto';
 import { UpdateIntentionDto } from './dto/update-intention.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { DayIntentionsResponse } from '../types/intentions/day-intentions-response.interface';
+import { DayIntentionsResponse } from '../types';
 
 @Controller('intentions')
 export class IntentionsController {
@@ -52,6 +52,7 @@ export class IntentionsController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.intentionsService.remove(id);
   }
