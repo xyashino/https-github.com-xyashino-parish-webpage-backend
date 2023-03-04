@@ -5,11 +5,12 @@ import { UserService } from './user/user.service';
 import { Day } from './enums/day.enum';
 import { IntentionsDayEntity } from './intentions/entities/intentions-day.entity';
 import { AnnouncementsEntity } from './announcements/entities/announcements.entity';
+import {mkdir, stat } from 'fs/promises';
 
 @Injectable()
 export class StartupService implements OnModuleInit {
   async onModuleInit() {
-    // await this.checkDirExist();
+    await this.checkDirExist();
     await this.createAdminAccount();
     await this.createIntentions();
     await this.createAnnouncement();
@@ -20,14 +21,14 @@ export class StartupService implements OnModuleInit {
   @Inject(forwardRef(() => UserService))
   private userService: UserService;
 
-  // private async checkDirExist() {
-  //   const albumDir = this.configService.get('ALBUM_DIR');
-  //   try {
-  //     await stat(albumDir);
-  //   } catch (e) {
-  //     await mkdir(albumDir, { recursive: true });
-  //   }
-  // }
+  private async checkDirExist() {
+    const albumDir = this.configService.get('ALBUM_DIR');
+    try {
+      await stat(albumDir);
+    } catch (e) {
+      await mkdir(albumDir, { recursive: true });
+    }
+  }
 
   private async createAdminAccount() {
     if (!UserEntity) return;
