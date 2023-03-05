@@ -6,9 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { AlbumEntity } from './album.entity';
+import { AlbumType } from '../../types';
 
 @Entity()
-export class AlbumTypeEntity extends BaseEntity {
+export class AlbumTypeEntity extends BaseEntity implements AlbumType {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

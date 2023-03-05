@@ -3,7 +3,7 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateAlbumDto {
   @IsOptional()
   @IsString()
-  type: string;
+  type?: string;
   @IsNotEmpty()
   @IsString()
   title: string;

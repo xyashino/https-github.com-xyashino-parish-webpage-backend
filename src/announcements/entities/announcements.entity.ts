@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { AnnouncementItemEntity } from './announcement-item.entity';
-import { Announcements } from '../../types/announcement/announcements-entity.interface';
+import { Announcements } from '../../types';
 
 @Entity()
 export class AnnouncementsEntity extends BaseEntity implements Announcements {
@@ -20,7 +20,7 @@ export class AnnouncementsEntity extends BaseEntity implements Announcements {
   subtitle: string;
 
   @OneToMany(
-    (type) => AnnouncementItemEntity,
+    () => AnnouncementItemEntity,
     (intention) => intention.announcement,
     {
       cascade: true,
