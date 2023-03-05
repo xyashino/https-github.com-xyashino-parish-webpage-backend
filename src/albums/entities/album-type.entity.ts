@@ -18,6 +18,9 @@ export class AlbumTypeEntity extends BaseEntity implements AlbumType {
   })
   name: string;
 
-  @OneToMany(() => AlbumEntity, (album) => album.type, { nullable: true })
+  @OneToMany(() => AlbumEntity, (album) => album.type, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   albums: AlbumEntity[];
 }

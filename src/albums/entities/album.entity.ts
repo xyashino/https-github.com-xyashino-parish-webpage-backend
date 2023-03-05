@@ -38,6 +38,7 @@ export class AlbumEntity extends BaseEntity implements Album {
 
   @ManyToOne(() => AlbumTypeEntity, (albumType) => albumType.albums, {
     nullable: true,
+    onDelete: 'SET NULL',
   })
   @JoinColumn()
   type: AlbumTypeEntity;
