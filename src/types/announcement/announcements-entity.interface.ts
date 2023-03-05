@@ -1,4 +1,4 @@
-import { AnnouncementsItem } from './announcement-item-entity.interface';
+import { AnnouncementsItem } from './announcement-item';
 
 export interface Announcements {
   id: string;

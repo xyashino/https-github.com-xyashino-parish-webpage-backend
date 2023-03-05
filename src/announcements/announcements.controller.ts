@@ -13,6 +13,7 @@ import { AnnouncementsService } from './announcements.service';
 import { UpdateAnnouncementDto } from './dto/update-announcement.dto';
 import { CreateAnnouncementDto } from './dto/create-announcement.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { AnnouncementsResponse } from '../types';
 
 @Controller('announcements')
 export class AnnouncementsController {
@@ -20,16 +21,18 @@ export class AnnouncementsController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  create(@Body() body: CreateAnnouncementDto) {
+  create(@Body() body: CreateAnnouncementDto): Promise<AnnouncementsResponse> {
     return this.announcementsService.create(body);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<AnnouncementsResponse[]> {
     return this.announcementsService.findMany();
   }
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<AnnouncementsResponse> {
     return this.announcementsService.findOne(id);
   }
   @Patch(':id')
@@ -37,7 +40,7 @@ export class AnnouncementsController {
   update(
     @Param('id') id: string,
     @Body() updateAnnouncementDto: UpdateAnnouncementDto,
-  ) {
+  ): Promise<AnnouncementsResponse> {
     return this.announcementsService.update(id, updateAnnouncementDto);
   }
 

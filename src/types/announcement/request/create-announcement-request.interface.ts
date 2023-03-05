@@ -1,7 +1,8 @@
-import { CreateAnnouncementItem } from './create-announcement-item.interface';
+import { Announcements } from '../announcements-entity.interface';
+import { CreateAnnouncementItem } from '../announcement-item';
 
 export interface CreateAnnouncementRequest {
-  title: string;
-  subtitle: string;
+  title: Announcements['title'];
+  subtitle: Announcements['subtitle'];
   announcements: CreateAnnouncementItem[];
 }
