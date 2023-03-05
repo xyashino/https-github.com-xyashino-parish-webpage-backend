@@ -1,5 +1,5 @@
 import { Day } from 'src/enums/day.enum';
-import { IntentionResponse } from './intention-response.interface';
+import { IntentionResponse } from '../intention-response.interface';
 export interface DayIntentionEntity {
   id: string;
   day: Day;

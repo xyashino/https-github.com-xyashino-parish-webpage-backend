@@ -1,5 +1,7 @@
+import { Intention } from './intention-entity.interface';
+
 export interface IntentionResponse {
-  id: string;
-  hour: string;
-  value: string;
+  id: Intention['id'];
+  hour: Intention['hour'];
+  value: Intention['value'];
 }

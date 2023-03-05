@@ -1,4 +1,6 @@
+import { Intention } from '../intention-entity.interface';
+
 export interface UpdateIntentionRequest {
-  hour?: string;
-  value?: string;
+  hour?: Intention['hour'];
+  value?: Intention['value'];
 }
