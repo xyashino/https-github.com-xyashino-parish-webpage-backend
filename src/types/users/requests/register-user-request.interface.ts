@@ -1,4 +1,6 @@
+import { UserEntity } from '../../../user/entities/user.entity';
+
 export interface RegisterUserRequest {
-  email: string;
+  email: UserEntity['email'];
   password: string;
 }

@@ -1,4 +1,6 @@
+import { UserEntity } from '../../user/entities/user.entity';
+
 export interface UsersResponse {
-  id: string;
-  email: string;
+  id: UserEntity['id'];
+  email: UserEntity['email'];
 }

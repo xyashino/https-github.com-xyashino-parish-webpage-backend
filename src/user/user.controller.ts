@@ -29,7 +29,7 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  getAllUsers(): Promise<UsersResponse> {
+  getAllUsers(): Promise<UsersResponse[]> {
     return this.userService.findAll();
   }
   @Post('register')
@@ -37,20 +37,11 @@ export class UserController {
     return this.userService.register(body);
   }
 
-  @Delete(':id')
-  @UseGuards(AuthGuard('jwt'))
-  remove(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @UserObj() user: UserEntity,
-  ): Promise<void> {
-    return this.userService.remove(id, user);
-  }
   @Get('current')
   @UseGuards(AuthGuard('jwt'))
   getCurrentUser(@UserObj() user: UserEntity): UsersResponse {
     return this.userService.getCurrentUser(user);
   }
-
   @Patch('current')
   @UseGuards(AuthGuard('jwt'))
   async updateCurrentUser(
@@ -58,5 +49,22 @@ export class UserController {
     @Body() body: UpdateUserDto,
   ): Promise<UsersResponse> {
     return await this.userService.updateCurrentUser(user, body);
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
+  getOne(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @UserObj() user: UserEntity,
+  ): Promise<UsersResponse> {
+    return this.userService.findOne(id);
+  }
+  @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
+  remove(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @UserObj() user: UserEntity,
+  ): Promise<void> {
+    return this.userService.remove(id, user);
   }
 }

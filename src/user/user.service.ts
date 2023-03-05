@@ -17,10 +17,10 @@ export class UserService {
   @Inject(forwardRef(() => ConfigService))
   public configService: ConfigService;
 
-  async findAll(): Promise<any> {
+  async findAll(): Promise<UserEntity[]> {
     return await UserEntity.find();
   }
-  async findOne(userId: string) {
+  async findOne(userId: string): Promise<UserEntity> {
     const user = await UserEntity.findOneBy({ id: userId });
     if (!user) {
       throw new NotFoundException();
