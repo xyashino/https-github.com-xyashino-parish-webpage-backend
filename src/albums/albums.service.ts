@@ -53,6 +53,11 @@ export class AlbumsService {
   }
   async remove(id: string) {
     const albumEntity = await this.findOne(id);
+
+    for (const ImageEntity of albumEntity.images) {
+      await ImageEntity.remove();
+    }
+
     await this.removeRecursiveDir(albumEntity.id);
     await albumEntity.remove();
     return {

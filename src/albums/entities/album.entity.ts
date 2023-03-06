@@ -31,9 +31,7 @@ export class AlbumEntity extends BaseEntity implements Album {
   })
   backgroundImage?: string;
 
-  @OneToMany(() => ImageEntity, (image) => image.images, {
-    cascade: true,
-  })
+  @OneToMany(() => ImageEntity, (image) => image.images)
   images: ImageEntity[];
 
   @ManyToOne(() => AlbumTypeEntity, (albumType) => albumType.albums, {

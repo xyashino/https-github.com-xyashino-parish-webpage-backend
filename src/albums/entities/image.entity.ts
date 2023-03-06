@@ -25,6 +25,6 @@ export class ImageEntity extends BaseEntity implements Image {
   })
   url: string;
 
-  @ManyToOne(() => AlbumEntity, (album) => album.images)
+  @ManyToOne(() => AlbumEntity, (album) => album)
   images: AlbumEntity;
 }
