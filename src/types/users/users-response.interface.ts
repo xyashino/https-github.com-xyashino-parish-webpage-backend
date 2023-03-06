@@ -1,6 +1,6 @@
-import { UserEntity } from '../../user/entities/user.entity';
+import { User } from './user-entity.interface';
 
 export interface UsersResponse {
-  id: UserEntity['id'];
-  email: UserEntity['email'];
+  id: User['id'];
+  email: User['email'];
 }

@@ -1,7 +1,7 @@
-import { UserEntity } from '../../../user/entities/user.entity';
+import { User } from '../user-entity.interface';
 
 export interface UpdateUserRequest {
-  email?: UserEntity['email'];
+  email?: User['email'];
   newPassword?: string;
   password: string;
 }
