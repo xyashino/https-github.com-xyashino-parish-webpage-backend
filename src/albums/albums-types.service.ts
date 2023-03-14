@@ -46,7 +46,7 @@ export class AlbumsTypesService {
       await this.checkUniqueValue(name);
       albumTypeEntity.name = name;
     }
-    for (const [key, value] of Object.keys(rest)) {
+    for (const [key, value] of Object.entries(rest)) {
       albumTypeEntity[key] = value;
     }
 

@@ -72,7 +72,7 @@ export class AlbumsService {
   }
   async update(
     id: string,
-    { backgroundImage, ...restOfAlbumDto }: UpdateAlbumDto,
+    { backgroundImage, type, ...restOfAlbumDto }: UpdateAlbumDto,
   ) {
     const albumEntity = await this.findOne(id);
 
@@ -82,7 +82,11 @@ export class AlbumsService {
       albumEntity.backgroundImage = backgroundImage;
     }
 
-    for (const [key, value] of Object.keys(restOfAlbumDto)) {
+    if (type) {
+      albumEntity.type = await this.albumsTypeService.findOne(type);
+    }
+
+    for (const [key, value] of Object.entries(restOfAlbumDto)) {
       albumEntity[key] = value;
     }
     return albumEntity.save();
