@@ -9,8 +9,9 @@ import {
 
 export class UpdateAlbumTypeDto {
   @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
   @IsOptional()
   @IsNumber()

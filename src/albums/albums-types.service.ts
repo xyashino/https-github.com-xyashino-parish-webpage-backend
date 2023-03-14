@@ -15,8 +15,7 @@ export class AlbumsTypesService {
   @Inject(forwardRef(() => ConfigService))
   private configService: ConfigService;
   async create({ name, order }: CreateAlbumTypeDto) {
-    if (await AlbumTypeEntity.findOneBy({ name }))
-      throw new ConflictException('Album type with this name exist');
+    await this.checkUniqueValue(name);
 
     const newAlbumType = new AlbumTypeEntity();
     newAlbumType.name = name;
@@ -41,12 +40,21 @@ export class AlbumsTypesService {
     const albumTypeEntity = await this.findOne(id);
     await albumTypeEntity.remove();
   }
-  async update(id: string, { name, order }: UpdateAlbumTypeDto) {
+  async update(id: string, { name, ...rest }: UpdateAlbumTypeDto) {
     const albumTypeEntity = await this.findOne(id);
-    albumTypeEntity.name = name;
-    if (order) {
-      albumTypeEntity.order = order;
+    if (name) {
+      await this.checkUniqueValue(name);
+      albumTypeEntity.name = name;
     }
+    for (const [key, value] of Object.keys(rest)) {
+      albumTypeEntity[key] = value;
+    }
+
     return albumTypeEntity.save();
+  }
+
+  private async checkUniqueValue(name: string) {
+    if (await AlbumTypeEntity.findOneBy({ name }))
+      throw new ConflictException('Album type with this name exist');
   }
 }
