@@ -6,6 +6,6 @@ export interface Album {
   title: string;
   subtitle?: string;
   backgroundImage?: Image['url'];
-  type: AlbumType;
+  type?: AlbumType;
   images: Image[];
 }

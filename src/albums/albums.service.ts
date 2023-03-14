@@ -38,7 +38,11 @@ export class AlbumsService {
   }
 
   findAll() {
-    return AlbumEntity.find();
+    return AlbumEntity.find({
+      relations: {
+        type: true,
+      },
+    });
   }
 
   async findOne(id: string) {

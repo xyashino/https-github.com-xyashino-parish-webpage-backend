@@ -14,12 +14,15 @@ import { UpdateAlbumTypeDto } from './dto/update-album-type.dto';
 export class AlbumsTypesService {
   @Inject(forwardRef(() => ConfigService))
   private configService: ConfigService;
-  async create({ name }: CreateAlbumTypeDto) {
+  async create({ name, order }: CreateAlbumTypeDto) {
     if (await AlbumTypeEntity.findOneBy({ name }))
       throw new ConflictException('Album type with this name exist');
 
     const newAlbumType = new AlbumTypeEntity();
     newAlbumType.name = name;
+    if (order) {
+      newAlbumType.order = order;
+    }
     return newAlbumType.save();
   }
   async findOne(id: string) {
@@ -32,7 +35,7 @@ export class AlbumsTypesService {
   }
 
   findAll() {
-    return AlbumTypeEntity.find();
+    return AlbumTypeEntity.find({ order: { order: 'DESC' } });
   }
   async remove(id: string) {
     const albumTypeEntity = await this.findOne(id);

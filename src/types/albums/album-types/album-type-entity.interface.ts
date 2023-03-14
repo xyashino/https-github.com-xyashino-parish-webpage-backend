@@ -4,4 +4,5 @@ export interface AlbumType {
   id: string;
   name: string;
   albums: Album[];
+  order: number;
 }

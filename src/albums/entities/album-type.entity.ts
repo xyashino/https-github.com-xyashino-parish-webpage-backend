@@ -18,6 +18,12 @@ export class AlbumTypeEntity extends BaseEntity implements AlbumType {
   })
   name: string;
 
+  @Column({
+    type: 'tinyint',
+    default: -1,
+  })
+  order: number;
+
   @OneToMany(() => AlbumEntity, (album) => album.type, {
     nullable: true,
     onDelete: 'SET NULL',
