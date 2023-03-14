@@ -1,3 +1,4 @@
 export interface UpdateAlbumType {
-  name: string;
+  name?: string;
+  order?: string;
 }

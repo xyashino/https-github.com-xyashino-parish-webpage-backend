@@ -1,4 +1,4 @@
 export interface CreateAlbumType {
-  name: string;
+  name?: string;
   order?: number;
 }
