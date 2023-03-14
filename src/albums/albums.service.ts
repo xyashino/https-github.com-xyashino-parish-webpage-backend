@@ -50,6 +50,7 @@ export class AlbumsService {
       where: { id },
       relations: {
         images: true,
+        type: true,
       },
     });
     if (!albumEntity) throw new NotFoundException('Directory was not found');
