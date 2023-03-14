@@ -41,9 +41,12 @@ export class AlbumsTypesService {
     const albumTypeEntity = await this.findOne(id);
     await albumTypeEntity.remove();
   }
-  async update(id: string, { name }: UpdateAlbumTypeDto) {
+  async update(id: string, { name, order }: UpdateAlbumTypeDto) {
     const albumTypeEntity = await this.findOne(id);
     albumTypeEntity.name = name;
+    if (order) {
+      albumTypeEntity.order = order;
+    }
     return albumTypeEntity.save();
   }
 }

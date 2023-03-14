@@ -16,5 +16,5 @@ export class UpdateAlbumTypeDto {
   @IsNumber()
   @Min(-100)
   @Max(100)
-  order: number;
+  order?: number;
 }
