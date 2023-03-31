@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { AnnouncementItemEntity } from './announcement-item.entity';
 import { Announcements } from '../../types';
+import { AnnouncementStatus } from '../../enums/announcement-status.enum';
 
 @Entity()
 export class AnnouncementsEntity extends BaseEntity implements Announcements {
@@ -18,6 +19,14 @@ export class AnnouncementsEntity extends BaseEntity implements Announcements {
 
   @Column()
   subtitle: string;
+  @Column({
+    type: 'enum',
+    nullable: true,
+    unique: true,
+    default: null,
+    enum: AnnouncementStatus,
+  })
+  status: AnnouncementStatus;
 
   @OneToMany(
     () => AnnouncementItemEntity,

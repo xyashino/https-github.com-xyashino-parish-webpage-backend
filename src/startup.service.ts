@@ -5,7 +5,7 @@ import { UserService } from './user/user.service';
 import { Day } from './enums/day.enum';
 import { IntentionsDayEntity } from './intentions/entities/intentions-day.entity';
 import { AnnouncementsEntity } from './announcements/entities/announcements.entity';
-import {mkdir, stat } from 'fs/promises';
+import { mkdir, stat } from 'fs/promises';
 
 @Injectable()
 export class StartupService implements OnModuleInit {

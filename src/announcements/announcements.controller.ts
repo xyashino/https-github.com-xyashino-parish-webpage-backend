@@ -7,6 +7,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AnnouncementsService } from './announcements.service';
@@ -14,6 +15,7 @@ import { UpdateAnnouncementDto } from './dto/update-announcement.dto';
 import { CreateAnnouncementDto } from './dto/create-announcement.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AnnouncementsResponse } from '../types';
+import { IsEnumStatus } from './dto/is-enum-status.dto';
 
 @Controller('announcements')
 export class AnnouncementsController {
@@ -22,12 +24,15 @@ export class AnnouncementsController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   create(@Body() body: CreateAnnouncementDto): Promise<AnnouncementsResponse> {
-    return this.announcementsService.create(body);
+    if (body.announcements) return this.announcementsService.create(body);
   }
 
   @Get()
-  findAll(): Promise<AnnouncementsResponse[]> {
-    return this.announcementsService.findMany();
+  findAll(
+    @Query('')
+    { status }: IsEnumStatus,
+  ): Promise<AnnouncementsResponse[]> {
+    return this.announcementsService.findMany(status);
   }
   @Get(':id')
   findOne(
