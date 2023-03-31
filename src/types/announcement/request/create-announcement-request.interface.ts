@@ -5,4 +5,5 @@ export interface CreateAnnouncementRequest {
   title: Announcements['title'];
   subtitle: Announcements['subtitle'];
   announcements: CreateAnnouncementItem[];
+  status?: Announcements['status'];
 }
