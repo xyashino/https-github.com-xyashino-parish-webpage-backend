@@ -1,11 +1,10 @@
 import { AnnouncementsItem } from './announcement-item';
-import { AnnouncementStatus } from '../../enums/announcement-status.enum';
 
 export interface Announcements {
   id: string;
   title: string;
   subtitle: string;
-  status?: AnnouncementStatus;
+  status: 'ACTIVE' | 'UPCOMING' | null;
   announcements: AnnouncementsItem[];
 }
 

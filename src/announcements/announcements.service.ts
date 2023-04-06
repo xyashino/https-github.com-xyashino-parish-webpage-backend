@@ -21,16 +21,16 @@ export class AnnouncementsService {
       ...(status
         ? {
             where: { status },
+            order: {
+              announcements: {
+                order: 'asc',
+              },
+            },
             relations: {
               announcements: true,
             },
           }
         : {}),
-      order: {
-        announcements: {
-          order: 'asc',
-        },
-      },
     });
   }
 
