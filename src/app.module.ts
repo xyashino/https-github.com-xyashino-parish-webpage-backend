@@ -9,6 +9,8 @@ import { AnnouncementsModule } from './announcements/announcements.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { AlbumsModule } from './albums/albums.module';
 import { StartupService } from './startup.service';
+import { TaskService } from './task/task.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { StartupService } from './startup.service';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync(typeormConfigAsync),
+    ScheduleModule.forRoot(),
     IntentionsModule,
     AuthModule,
     UserModule,
@@ -23,6 +26,6 @@ import { StartupService } from './startup.service';
     UploadsModule,
     AlbumsModule,
   ],
-  providers: [StartupService],
+  providers: [StartupService, TaskService],
 })
 export class AppModule {}
