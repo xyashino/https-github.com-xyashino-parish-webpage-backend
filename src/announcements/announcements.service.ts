@@ -87,7 +87,7 @@ export class AnnouncementsService {
     }
   }
 
-  private async clearStatus(status: AnnouncementStatus) {
+  async clearStatus(status: AnnouncementStatus) {
     const foundItem = await AnnouncementsEntity.findOneBy({ status });
     if (!foundItem) return true;
     foundItem.status = null;
