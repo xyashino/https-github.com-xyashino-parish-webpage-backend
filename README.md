@@ -1,4 +1,6 @@
-[![Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?lineCount=2&theme=angular&line1=typescript,typescript,3178C6;nestjs,nestjs,E0234E;passport,passport,34E27A;)](https://github-readme-tech-stack.vercel.app/api/cards?lineCount=2&theme=angular&line1=typescript,typescript,3178C6;nestjs,nestjs,E0234E;passport,passport,34E27A;)
+<p style="text-align: center">
+  <img src="https://github-readme-tech-stack.vercel.app/api/cards?lineCount=2&theme=angular&line1=typescript,typescript,3178C6;nestjs,nestjs,E0234E;passport,passport,34E27A;" alt="Tech Stack"/>
+</p>
 
 # PARISH-WEBPAGE-BACKEND
 
