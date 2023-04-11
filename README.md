@@ -1,73 +1,99 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+[![Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?lineCount=2&theme=angular&line1=typescript,typescript,3178C6;nestjs,nestjs,E0234E;passport,passport,34E27A;)](https://github-readme-tech-stack.vercel.app/api/cards?lineCount=2&theme=angular&line1=typescript,typescript,3178C6;nestjs,nestjs,E0234E;passport,passport,34E27A;)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# PARISH-WEBPAGE-BACKEND
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+**PARISH-WEBPAGE -** is a full-stack application that aims to present a simple parish website with the ability to edit certain things like intentions and announcements, in the style of a simple "Wordpress". The project consists of three repositories:
 
-## Description
+- [FRONTEND - CLIENT](https://github.com/xyashino/parish-webpage-front)
+- [BACKEND](https://github.com/xyashino/parish-webpage-backend)
+- [FRONTEND - ADMIN PANEL](https://github.com/xyashino/parish-webpage-adminpannel)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## YOU ARE CURRENTLY VIEWING THE BACKEND REPOSITORY
 
-## Installation
+**Backend repository -** This is the backend for the entire application that stores data about users, announcements, and intentions. The application utilizes Passport strategy for authentication and TypeORM for creating and managing the database.
 
+## ALL API ENDPOINTS
+
+- `/intentions`
+  - `(POST, GET, PATCH, DELETE, PATCH with /:id/:childId)`
+- `/auth/login `
+  - `(POST)`
+- `/auth/logout`
+  - ` (GET)`
+- `/users `
+  - `(GET, POST, GET with /:id, DELETE, PATCH, GET /current, PATCH /current)`
+- `/announcements `
+  - `(POST, GET, GET with /:id, PATCH, DELETE)`
+- `/uploads/:albumID/image`
+  - ` (POST)`
+- `/albums/types`
+  - ` (GET, POST, GET with /:id, DELETE, PATCH)`
+- `/albums `
+  - ` (GET, POST, GET with /:id, PATCH, DELETE)`
+- `/albums/image/:imageId`
+  - ` (DELETE)`
+
+## Environment Variables
+
+To run the application, you need environment variables in `.env` file . The default configuration is provided in the `.env.example` file.
+
+## HOW TO DOWNLOAD AND RUN THE REPOSITORY
+1. Clone the `PARISH-WEBPAGE-BACKEND` repository to your computer.
 ```bash
-$ yarn install
+git clone https://github.com/xyashino/parish-webpage-backend.git
 ```
-
-## Running the app
-
+2. Open the terminal and go to the parish-webpage-front/ folder in the repository.
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+cd parish-webpage-backend/
 ```
-
-## Test
-
+3. Install packages.
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+yarn
 ```
+4. Configure environment variables 
 
-## Support
+5. Run the application.
+```bash
+yarn start:dev
+```
+### EXAMPLE APP CONFIG DESCRIPTION
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Below are the descriptions of environment variables for the example app configuration.
 
-## Stay in touch
+- **PORT**:The port number the application will run on.
+- **DOMAIN**:The domain name for the application.
+- **CORS**: The allowed origins for CORS requests. Must be divided by `,`.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### DB CONFIG
 
-## License
+- **DB_NAME**: The name of the database.
+- **DB_HOST**: The hostname of the database server.
+- **DB_PORT**: The port number for the database connection.
+- **DB_USERNAME**: The username for the database connection.
+- **DB_PASSWORD**:The password for the database connection.
+- **DB_MIGRATION_BASE**: The base path for running database migrations.
+- **DB_LOGGING**Set to `true` to enable database logging.
+- **DB_SYNCHRONIZE**: Set to `true` to synchronize the database schema with the entities.
 
-Nest is [MIT licensed](LICENSE).
+#### ADMIN DATA
+
+- **ADMIN_PWD**: The password for the default admin user.
+- **ADMIN_LOGIN**: The login email for the default admin user.
+
+#### BCRYPT CONFIG
+
+- **BCRYPT_SALT_ROUNDS**: The number of rounds used in the bcrypt hashing algorithm.
+
+#### JWT CONFIG
+
+- **JWT_SECRET_KEY**: : A random string of characters used for generating JWT tokens.
+- **JWT_EXPIRES_SECONDS**: The expiration time for JWT tokens in seconds.
+- **JWT_PROTOCOL_SECURE**: Set to `true` for HTTPS-only access.
+- **JWT_HTTP_ONLY**: Set to `true` to prevent client-side access to JWT tokens.
+
+#### UPLOAD
+
+- **UPLOAD_DIR**: The directory to which uploaded files will be saved. Must have `/` at the end.
+- **ALBUM_DIR**: The directory for saving uploaded images.
+- **MAX_FILE_SIZE**: The maximum size of uploaded files in bytes.
+- **TINIFY_KEY**: The API key for image compression. You can get the key at https://tinypng.com/developers.
