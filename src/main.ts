@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const { PORT, CORS } = process.env;
@@ -29,6 +30,7 @@ async function bootstrap() {
   };
 
   app.enableCors(options);
+  app.use(helmet());
   await app.listen(PORT);
 }
 bootstrap();
