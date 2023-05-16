@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { AlbumTypeEntity } from './entities/album-type.entity';
 import { CreateAlbumTypeDto } from './dto/create-album-type.dto';
 import { UpdateAlbumTypeDto } from './dto/update-album-type.dto';
+import { applyDataToEntity } from '../utils/applyDataToEntity';
 
 @Injectable()
 export class AlbumsTypesService {

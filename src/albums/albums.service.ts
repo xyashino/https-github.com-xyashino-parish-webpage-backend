@@ -14,6 +14,7 @@ import { ImageEntity } from './entities/image.entity';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { AlbumsTypesService } from './albums-types.service';
 import { clearEntities } from '../utils/clearEntities';
+import { applyDataToEntity } from '../utils/applyDataToEntity';
 
 @Injectable()
 export class AlbumsService {

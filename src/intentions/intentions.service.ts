@@ -10,6 +10,7 @@ import { IntentionEntity } from './entities/intention.entity';
 import { UpdateDayIntentionsDto } from './dto/update-day-intentions.dto';
 import { CreateIntentionDto } from './dto/create-intention.dto';
 import { UpdateIntentionDto } from './dto/update-intention.dto';
+import { applyDataToEntity } from '../utils/applyDataToEntity';
 
 @Injectable()
 export class IntentionsService {

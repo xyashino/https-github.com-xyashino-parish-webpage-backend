@@ -6,6 +6,7 @@ import { AnnouncementItemEntity } from './entities/announcement-item.entity';
 import { CreateAnnouncementItemDto } from './dto/create-announcement-item.dto';
 import { AnnouncementStatus } from '../enums/announcement-status.enum';
 import { clearEntities } from '../utils/clearEntities';
+import { applyDataToEntity } from '../utils/applyDataToEntity';
 
 @Injectable()
 export class AnnouncementsService {
