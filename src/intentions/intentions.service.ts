@@ -86,7 +86,6 @@ export class IntentionsService {
     { hour, value }: UpdateIntentionDto,
   ) {
     if (!hour && !value) throw new ImATeapotException();
-
     const intention = await IntentionEntity.findOneBy({ id: uuid });
     if (!intention) throw new NotFoundException('Intention not found');
     intention.value = value ?? intention.value;
@@ -109,7 +108,7 @@ export class IntentionsService {
   ) {
     for await (const invention of intentions) {
       const newIntention = new IntentionEntity();
-      applyDataToEntity(newIntention, { ...intentions, day: dayEntity });
+      applyDataToEntity(newIntention, { ...invention, day: dayEntity });
       await newIntention.save();
     }
   }
