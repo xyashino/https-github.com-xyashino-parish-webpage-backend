@@ -5,7 +5,6 @@ import { AnnouncementsEntity } from './entities/announcements.entity';
 import { AnnouncementItemEntity } from './entities/announcement-item.entity';
 import { CreateAnnouncementItemDto } from './dto/create-announcement-item.dto';
 import { AnnouncementStatus } from '../enums/announcement-status.enum';
-import { BaseEntity } from 'typeorm';
 import { clearEntities } from '../utils/clearEntities';
 
 @Injectable()
