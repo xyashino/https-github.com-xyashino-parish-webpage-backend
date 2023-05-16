@@ -13,6 +13,7 @@ import { CreateAlbumDto } from './dto/create-album.dto';
 import { ImageEntity } from './entities/image.entity';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { AlbumsTypesService } from './albums-types.service';
+import { clearEntities } from '../utils/clearEntities';
 
 @Injectable()
 export class AlbumsService {
@@ -21,15 +22,11 @@ export class AlbumsService {
   @Inject(forwardRef(() => AlbumsTypesService))
   private albumsTypeService: AlbumsTypesService;
 
-  async create({ type, title, subtitle }: CreateAlbumDto) {
+  async create({ type, ...restAlbum }: CreateAlbumDto) {
     const albumDirPath = this.configService.get('ALBUM_DIR');
     const newAlbum = new AlbumEntity();
-
-    newAlbum.title = title;
-    newAlbum.subtitle = subtitle;
-    if (type) {
-      newAlbum.type = await this.albumsTypeService.findOne(type);
-    }
+    applyDataToEntity(newAlbum, restAlbum);
+    type && (newAlbum.type = await this.albumsTypeService.findOne(type));
 
     const { id } = await newAlbum.save();
     await mkdir(`${albumDirPath}/${id}`);
@@ -38,11 +35,7 @@ export class AlbumsService {
   }
 
   findAll() {
-    return AlbumEntity.find({
-      relations: {
-        type: true,
-      },
-    });
+    return AlbumEntity.find({ relations: { type: true } });
   }
 
   async findOne(id: string) {
@@ -58,10 +51,7 @@ export class AlbumsService {
   }
   async remove(id: string) {
     const albumEntity = await this.findOne(id);
-
-    for (const ImageEntity of albumEntity.images) {
-      await ImageEntity.remove();
-    }
+    await clearEntities(albumEntity.images);
 
     await this.removeRecursiveDir(albumEntity.id);
     await albumEntity.remove();
@@ -81,23 +71,15 @@ export class AlbumsService {
       if (!image) throw new UnprocessableEntityException();
       albumEntity.backgroundImage = backgroundImage;
     }
-
-    if (type) {
-      albumEntity.type = await this.albumsTypeService.findOne(type);
-    }
-
-    for (const [key, value] of Object.entries(restOfAlbumDto)) {
-      albumEntity[key] = value;
-    }
+    type && (albumEntity.type = await this.albumsTypeService.findOne(type));
+    applyDataToEntity(albumEntity, restOfAlbumDto);
     return albumEntity.save();
   }
 
   async removeImage(id: string) {
     const foundImage = await ImageEntity.findOneBy({ id });
     if (!foundImage) throw new NotFoundException('Image was not found');
-
     const albumDir = this.configService.get('ALBUM_DIR');
-
     try {
       await unlink(`${albumDir}${foundImage.url}`);
     } catch ({ message }) {
@@ -105,7 +87,6 @@ export class AlbumsService {
     }
 
     await foundImage.remove();
-
     return {
       status: 'success',
       message: 'File was successfully removed.',

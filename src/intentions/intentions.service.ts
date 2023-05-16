@@ -13,13 +13,14 @@ import { UpdateIntentionDto } from './dto/update-intention.dto';
 
 @Injectable()
 export class IntentionsService {
-  async create({ day, intentions, dateOfDay }: CreateDayIntentionsDto) {
-    const existUniqueValue = await IntentionsDayEntity.findOneBy({ day });
-    if (existUniqueValue) throw new ConflictException(`${day} exist`);
+  async create({ intentions, ...restDay }: CreateDayIntentionsDto) {
+    const existUniqueValue = await IntentionsDayEntity.findOneBy({
+      day: restDay.day,
+    });
+    if (existUniqueValue) throw new ConflictException(`${restDay.day} exist`);
 
     const dayIntentions = new IntentionsDayEntity();
-    dayIntentions.day = day;
-    dayIntentions.dateOfDay = dateOfDay;
+    applyDataToEntity(dayIntentions, restDay);
     const dayEntity = await dayIntentions.save();
     await this.createChildIntentions(dayEntity, intentions);
     return dayEntity;
@@ -105,11 +106,9 @@ export class IntentionsService {
     dayEntity: IntentionsDayEntity,
     intentions: CreateIntentionDto[],
   ) {
-    for await (const { hour, value } of intentions) {
+    for await (const invention of intentions) {
       const newIntention = new IntentionEntity();
-      newIntention.day = dayEntity;
-      newIntention.hour = hour;
-      newIntention.value = value;
+      applyDataToEntity(newIntention, { ...intentions, day: dayEntity });
       await newIntention.save();
     }
   }

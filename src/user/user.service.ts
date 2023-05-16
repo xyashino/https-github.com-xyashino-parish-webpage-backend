@@ -22,9 +22,7 @@ export class UserService {
   }
   async findOne(userId: string): Promise<UserEntity> {
     const user = await UserEntity.findOneBy({ id: userId });
-    if (!user) {
-      throw new NotFoundException();
-    }
+    if (!user) throw new NotFoundException();
     return user;
   }
 
@@ -32,25 +30,21 @@ export class UserService {
     const { email, password } = body;
 
     await this.checkConflictData(email);
-
     const user = new UserEntity();
     user.email = email;
     user.hashedPassword = await hash(
       password,
       +this.configService.get<number>('BCRYPT_SALT_ROUNDS'),
     );
-
     return await user.save();
   }
   async remove(id: string, admin: UserEntity) {
-    const user = await UserEntity.findOneBy({ id });
-    if (!user) throw new NotFoundException('Invalid id');
+    const user = await this.findOne(id);
     if (
       user.email === this.configService.get('ADMIN_LOGIN') ||
       admin.id === user.id
     )
       throw new UnauthorizedException(`Can't remove this user.`);
-
     await user.remove();
   }
   getCurrentUser(user: UserEntity) {
@@ -74,7 +68,6 @@ export class UserService {
         this.configService.get('BCRYPT_SALT_ROUNDS'),
       );
     }
-
     return user.save();
   }
 

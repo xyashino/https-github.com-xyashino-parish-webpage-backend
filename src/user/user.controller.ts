@@ -23,12 +23,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 @Serialize(UserDto)
+@UseGuards(AuthGuard('jwt'))
 export class UserController {
   @Inject(forwardRef(() => UserService))
   private userService: UserService;
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
   getAllUsers(): Promise<UsersResponse[]> {
     return this.userService.findAll();
   }
@@ -38,12 +38,10 @@ export class UserController {
   }
 
   @Get('current')
-  @UseGuards(AuthGuard('jwt'))
   getCurrentUser(@UserObj() user: UserEntity): UsersResponse {
     return this.userService.getCurrentUser(user);
   }
   @Patch('current')
-  @UseGuards(AuthGuard('jwt'))
   async updateCurrentUser(
     @UserObj() user: UserEntity,
     @Body() body: UpdateUserDto,
@@ -52,7 +50,6 @@ export class UserController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard('jwt'))
   getOne(
     @Param('id', new ParseUUIDPipe()) id: string,
     @UserObj() user: UserEntity,
@@ -60,7 +57,6 @@ export class UserController {
     return this.userService.findOne(id);
   }
   @Delete(':id')
-  @UseGuards(AuthGuard('jwt'))
   remove(
     @Param('id', new ParseUUIDPipe()) id: string,
     @UserObj() user: UserEntity,

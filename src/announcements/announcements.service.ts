@@ -5,13 +5,15 @@ import { AnnouncementsEntity } from './entities/announcements.entity';
 import { AnnouncementItemEntity } from './entities/announcement-item.entity';
 import { CreateAnnouncementItemDto } from './dto/create-announcement-item.dto';
 import { AnnouncementStatus } from '../enums/announcement-status.enum';
+import { BaseEntity } from 'typeorm';
+import { clearEntities } from '../utils/clearEntities';
 
 @Injectable()
 export class AnnouncementsService {
   async create({ announcements, status, ...rest }: CreateAnnouncementDto) {
     const newAnnouncement = new AnnouncementsEntity();
     await this.checkAndApplyStatus(status, newAnnouncement);
-    this.applyDataToEntity(newAnnouncement, rest);
+    applyDataToEntity(newAnnouncement, rest);
     await newAnnouncement.save();
     await this.createAnnouncements(announcements, newAnnouncement);
     return newAnnouncement;
@@ -57,22 +59,19 @@ export class AnnouncementsService {
     { announcements, status, ...rest }: UpdateAnnouncementDto,
   ) {
     const announcementEntity = await this.findOne(id);
-
     await this.checkAndApplyStatus(status, announcementEntity);
-    this.applyDataToEntity(announcementEntity, rest);
+    applyDataToEntity(announcementEntity, rest);
     await announcementEntity.save();
-
     if (announcementEntity.announcements.length !== 0)
-      await this.clearAnnouncementChild(announcementEntity.announcements);
+      await clearEntities(announcementEntity.announcements);
     if (announcements)
       await this.createAnnouncements(announcements, announcementEntity);
-
     return this.findOne(announcementEntity.id);
   }
 
   async remove(id: string) {
     const foundItem = await this.findOne(id);
-    await this.clearAnnouncementChild(foundItem.announcements);
+    await clearEntities(foundItem.announcements);
     return foundItem.remove();
   }
   private async createAnnouncements(
@@ -81,7 +80,7 @@ export class AnnouncementsService {
   ) {
     for await (const data of announcements) {
       const newChild = new AnnouncementItemEntity();
-      this.applyDataToEntity<AnnouncementItemEntity>(newChild, data);
+      applyDataToEntity(newChild, data);
       newChild.announcement = announcementEntity;
       await newChild.save();
     }
@@ -94,25 +93,12 @@ export class AnnouncementsService {
     return await foundItem.save();
   }
 
-  private applyDataToEntity<T extends {}>(entity: T, data: Partial<T>) {
-    for (const [key, value] of Object.entries(data)) {
-      entity[key] = value;
-    }
-  }
-
-  private async clearAnnouncementChild(entity: AnnouncementItemEntity[]) {
-    for (const announcement of entity) {
-      await announcement.remove();
-    }
-  }
-
   private async checkAndApplyStatus(
     status: AnnouncementStatus | undefined,
     entity: AnnouncementsEntity,
   ) {
     if (status) {
-      const a = await this.clearStatus(status);
-      console.log(a);
+      await this.clearStatus(status);
       entity.status = status;
     }
   }

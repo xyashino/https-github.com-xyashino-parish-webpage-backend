@@ -14,14 +14,10 @@ import { UpdateAlbumTypeDto } from './dto/update-album-type.dto';
 export class AlbumsTypesService {
   @Inject(forwardRef(() => ConfigService))
   private configService: ConfigService;
-  async create({ name, order }: CreateAlbumTypeDto) {
-    await this.checkUniqueValue(name);
-
+  async create(body: CreateAlbumTypeDto) {
+    await this.checkUniqueValue(body.name);
     const newAlbumType = new AlbumTypeEntity();
-    newAlbumType.name = name;
-    if (order) {
-      newAlbumType.order = order;
-    }
+    applyDataToEntity(newAlbumType, body);
     return newAlbumType.save();
   }
   async findOne(id: string) {
@@ -46,10 +42,7 @@ export class AlbumsTypesService {
       await this.checkUniqueValue(name);
       albumTypeEntity.name = name;
     }
-    for (const [key, value] of Object.entries(rest)) {
-      albumTypeEntity[key] = value;
-    }
-
+    applyDataToEntity(albumTypeEntity, rest);
     return albumTypeEntity.save();
   }
 
